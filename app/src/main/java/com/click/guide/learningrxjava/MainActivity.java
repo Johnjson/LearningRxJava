@@ -17,8 +17,10 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     Observer<String> observer;
@@ -28,8 +30,139 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        creatTest1();
-        creatTest2();
+//        creatTest1();
+//        creatTest2();
+
+
+
+    }
+
+    private void creatThread(){
+        Observable.just("大宝来了").
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.e("just", "onSubscribe ");
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Log.e("just", "onNext  " + s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("just", "onError  " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e("just", "onComplete ");
+                    }
+                });
+
+//        Observable.just("大宝来了").
+//                subscribeOn(Schedulers.newThread()).
+//                observeOn(AndroidSchedulers.mainThread()).
+//                subscribe(new Observer<String>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                        Log.e("just", "onSubscribe ");
+//                    }
+//
+//                    @Override
+//                    public void onNext(String s) {
+//                        Log.e("just", "onNext  " + s);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Log.e("just", "onError  " + e.getMessage());
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        Log.e("just", "onComplete ");
+//                    }
+//                });
+
+
+//        Observable.just("大宝来了").
+//                subscribeOn(Schedulers.single()).
+//                observeOn(AndroidSchedulers.mainThread()).
+//                subscribe(new Observer<String>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                        Log.e("just", "onSubscribe ");
+//                    }
+//
+//                    @Override
+//                    public void onNext(String s) {
+//                        Log.e("just", "onNext  " + s);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Log.e("just", "onError  " + e.getMessage());
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        Log.e("just", "onComplete ");
+//                    }
+//                });
+
+//        Observable.just("大宝来了").
+//                subscribeOn(Schedulers.computation()).
+//                observeOn(AndroidSchedulers.mainThread()).
+//                subscribe(new Observer<String>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                        Log.e("just", "onSubscribe ");
+//                    }
+//
+//                    @Override
+//                    public void onNext(String s) {
+//                        Log.e("just", "onNext  " + s);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Log.e("just", "onError  " + e.getMessage());
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        Log.e("just", "onComplete ");
+//                    }
+//                });
+
+        Observable.just("大宝来了").
+                subscribeOn(Schedulers.trampoline()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.e("just", "onSubscribe ");
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Log.e("just", "onNext  " + s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("just", "onError  " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e("just", "onComplete ");
+                    }
+                });
     }
 
 
